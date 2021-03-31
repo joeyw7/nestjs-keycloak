@@ -30,7 +30,11 @@
 
 ```bash
 $ npm install
+$ rm node_modules/keycloak-connect/keycloack.d.ts
 ```
+Note: the typescript defination provided by the keycloak adapter need to be removed, because it is outdated and invalid. 
+See https://github.com/keycloak/keycloak-nodejs-connect/pull/250
+
 
 ## Running the app
 
