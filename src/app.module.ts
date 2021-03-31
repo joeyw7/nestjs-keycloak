@@ -12,10 +12,10 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     const memoryStore = new session.MemoryStore();
     const kcConfig = {
-      clientId: 'nest-app',
+      clientId: 'testclient',
       bearerOnly: false,
       serverUrl: 'http://localhost:9990/auth',
-      realm: 'demo',
+      realm: 'testnet',
     };
     const keycloak = new Keycloak({ store: memoryStore }, kcConfig);
     consumer
@@ -28,7 +28,7 @@ export class AppModule implements NestModule {
         }),
       )
       .forRoutes(AppController);
-    consumer.apply(keycloak.middleware()).forRoutes(AppController);
-    consumer.apply(keycloak.checkSso()).forRoutes(AppController);
+    consumer.apply(keycloak.middleware()).forRoutes(AppController); // required by default
+    consumer.apply(keycloak.protect()).forRoutes(AppController);
   }
 }
